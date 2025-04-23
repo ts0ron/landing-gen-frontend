@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import {
   CssBaseline,
   ThemeProvider,
@@ -6,7 +6,6 @@ import {
   GlobalStyles,
 } from "@mui/material";
 import AppRoutes from "./routes";
-import MainLayout from "./layouts/main/MainLayout";
 
 const theme = createTheme({
   palette: {
@@ -66,9 +65,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-      <BrowserRouter>
+      <HashRouter>
         <AppRoutes />
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }
