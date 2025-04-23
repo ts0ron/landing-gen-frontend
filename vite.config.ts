@@ -39,4 +39,5 @@ export default defineConfig({
     outDir: "build",
     emptyOutDir: true,
   },
+  envPrefix: "VITE_", // Make sure Vite picks up our env variables
 });
