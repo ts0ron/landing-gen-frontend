@@ -120,7 +120,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_APP_GOOGLE_MAPS_API_KEY }}
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+          VITE_OPENAI_API_KEY: ${{secrets.VITE_OPENAI_API_KEY}}
+          VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
