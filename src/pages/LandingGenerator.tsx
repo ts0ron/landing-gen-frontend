@@ -29,7 +29,9 @@ interface PlaceOption {
 }
 
 const libraries: Libraries = ["places"];
-const landingPageService = new LandingPageService("http://localhost:3000");
+const landingPageService = new LandingPageService(
+  import.meta.env.VITE_APP_API_URL
+);
 
 const LandingGenerator = () => {
   const navigate = useNavigate();
