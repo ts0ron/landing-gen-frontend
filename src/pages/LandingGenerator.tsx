@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import {
   Box,
   Button,
@@ -15,21 +15,19 @@ import {
   Libraries,
 } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
-import { LandingPageService } from "../services/api/LandingPageService";
+import { GooglePlaceService } from "../services/api/GooglePlaceService";
+import {
+  GoogleMapsService,
+  PlaceSearchResult,
+} from "../services/google/GoogleMapsService";
 
 const defaultCenter = {
   lat: 40.7128,
   lng: -74.006,
 };
 
-interface PlaceOption {
-  place_id: string;
-  name: string;
-  formatted_address: string;
-}
-
 const libraries: Libraries = ["places"];
-const landingPageService = new LandingPageService(
+const googlePlaceService = new GooglePlaceService(
   import.meta.env.VITE_APP_API_URL
 );
 
@@ -44,120 +42,77 @@ const LandingGenerator = () => {
     null
   );
   const [center, setCenter] = useState(defaultCenter);
-  const [options, setOptions] = useState<PlaceOption[]>([]);
+  const [options, setOptions] = useState<PlaceSearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const searchPlaces = useCallback(async (input: string) => {
-    if (!input) return;
-    setLoading(true);
+  const googleMapsService = useRef<GoogleMapsService>();
 
-    try {
-      const service = new google.maps.places.PlacesService(
-        document.createElement("div")
-      );
-
-      const request = {
-        query: input,
-        fields: ["place_id", "name", "formatted_address", "geometry"],
-      };
-
-      service.textSearch(
-        request,
-        (
-          results: google.maps.places.PlaceResult[] | null,
-          status: google.maps.places.PlacesServiceStatus
-        ) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            setOptions(
-              results.map((result) => ({
-                place_id: result.place_id!,
-                name: result.name!,
-                formatted_address: result.formatted_address!,
-              }))
-            );
-          }
-          setLoading(false);
-        }
-      );
-    } catch (error) {
-      console.error("Error searching places:", error);
-      setLoading(false);
+  const initGoogleMapsService = useCallback(() => {
+    if (!googleMapsService.current) {
+      googleMapsService.current = new GoogleMapsService();
     }
   }, []);
 
-  const handlePlaceSelect = async (option: PlaceOption | null) => {
+  const searchPlaces = useCallback(
+    async (input: string) => {
+      if (!input) return;
+      setLoading(true);
+
+      try {
+        initGoogleMapsService();
+        const results = await googleMapsService.current!.searchPlaces(input);
+        setOptions(results);
+      } catch (error) {
+        console.error("Error searching places:", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [initGoogleMapsService]
+  );
+
+  const handlePlaceSelect = async (option: PlaceSearchResult | null) => {
     if (!option) {
       setPlace(null);
       return;
     }
 
-    const service = new google.maps.places.PlacesService(
-      document.createElement("div")
-    );
-
-    service.getDetails(
-      {
-        placeId: option.place_id,
-        fields: [
-          "place_id",
-          "name",
-          "formatted_address",
-          "geometry",
-          "website",
-          "formatted_phone_number",
-          "opening_hours",
-          "rating",
-          "reviews",
-          "url",
-        ],
-      },
-      (
-        result: google.maps.places.PlaceResult | null,
-        status: google.maps.places.PlacesServiceStatus
-      ) => {
-        if (
-          status === google.maps.places.PlacesServiceStatus.OK &&
-          result &&
-          result.geometry?.location
-        ) {
-          setPlace(result);
-          setCenter({
-            lat: result.geometry.location.lat(),
-            lng: result.geometry.location.lng(),
-          });
-        }
+    try {
+      initGoogleMapsService();
+      const placeDetails = await googleMapsService.current!.getPlaceDetails(
+        option.place_id
+      );
+      setPlace(placeDetails);
+      if (placeDetails.geometry?.location) {
+        setCenter({
+          lat: placeDetails.geometry.location.lat(),
+          lng: placeDetails.geometry.location.lng(),
+        });
       }
-    );
+    } catch (error) {
+      console.error("Error fetching place details:", error);
+    }
   };
 
   const handleGenerateLandingPage = () => {
-    if (!place || !place.place_id || !place.name || !place.formatted_address)
-      return;
+    if (!place || !place.place_id) return;
 
     setSubmitting(true);
-    const landingPageData = {
+
+    const placeData = {
       placeId: place.place_id,
-      name: place.name,
-      address: place.formatted_address,
-      phone: place.formatted_phone_number,
-      website: place.website,
-      rating: place.rating,
-      reviews: place.reviews?.map((review) => ({
-        text: review.text || "",
-        rating: review.rating || 0,
-        author: review.author_name || "",
-      })),
     };
 
-    landingPageService
-      .createLandingPage(landingPageData)
-      .then(() => {
-        console.log(`Created landing page for ${place.name}`);
-        navigate("/land", { state: { placeData: place } });
+    googlePlaceService
+      .registerPlace(placeData)
+      .then((response) => {
+        console.log(`Registered place with ID: ${response.id}`);
+        // TODO: Add a navigation to the landing page
+        navigate("/land", { state: { placeId: response.id } });
       })
-      .catch((error) => {
-        console.error("Error creating landing page:", error);
+      .catch((error: Error) => {
+        console.error("Error registering place:", error);
       })
       .finally(() => {
         setSubmitting(false);
@@ -279,7 +234,7 @@ const LandingGenerator = () => {
             onClick={handleGenerateLandingPage}
             disabled={!place || submitting}
           >
-            {submitting ? "Generating..." : "Generate Landing Page"}
+            {submitting ? "Generating..." : "Register Location"}
           </Button>
         </Box>
       </Paper>
