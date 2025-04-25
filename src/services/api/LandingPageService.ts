@@ -16,6 +16,6 @@ interface LandingPageData {
 
 export class LandingPageService extends ApiService {
   async createLandingPage(data: LandingPageData): Promise<{ id: string }> {
-    return this.post<{ id: string }>("/landing-pages", data);
+    return this.post<{ id: string }>("/places", data);
   }
 }

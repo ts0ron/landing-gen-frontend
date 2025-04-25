@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import LandingGenerator from "./pages/LandingGenerator";
 import LandingPage from "./pages/LandingPage";
 import MainLayout from "./layouts/main/MainLayout";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -11,7 +12,9 @@ const AppRoutes = () => {
         path="/gen"
         element={
           <MainLayout>
-            <LandingGenerator />
+            <ProtectedRoute>
+              <LandingGenerator />
+            </ProtectedRoute>
           </MainLayout>
         }
       />

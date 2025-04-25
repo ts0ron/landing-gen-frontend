@@ -1,20 +1,19 @@
 # Business Landing Page Generator
 
-A React application that generates landing pages for businesses using Google Places data. Built with Vite, TypeScript, and Material UI.
+A React application that generates landing pages for locations using Google Places data (and maybe other APIs later on..). Built with Vite, TypeScript, and Material UI.
 
 ## Features
 
-- Search for businesses using Google Places API
+- Search for location using Google Places API
 - Interactive map for location selection
 - Automatic landing page generation based on business data
 - Modern, responsive design using Material UI
 - TypeScript for type safety
-- Responsive and mobile-friendly interface
 - SEO-friendly generated landing pages
 
 ## Live Demo
 
-The application is deployed on GitHub Pages and can be accessed at: [Your GitHub Pages URL]
+The application is deployed on GitHub Pages and can be accessed [here](https://ts0ron.github.io/landing-gen-frontend)
 
 ## Prerequisites
 
@@ -52,6 +51,7 @@ npm install
 ```env
 VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
 VITE_APP_API_URL=http://localhost:3000
+VITE_OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 4. Start the development server:
@@ -78,58 +78,6 @@ npm run build
 ```
 
 The build artifacts will be stored in the `dist/` directory.
-
-## Deployment to GitHub Pages
-
-This project is configured to deploy to GitHub Pages. Follow these steps to deploy:
-
-1. In your repository settings, ensure GitHub Pages is enabled and set to deploy from the `gh-pages` branch.
-
-2. Add a `base` configuration to your `vite.config.ts`:
-
-```typescript
-export default defineConfig({
-  base: "/landing-gen-frontend/", // Replace with your repository name
-  // ... other config
-});
-```
-
-3. Create a new file called `deploy.yml` in `.github/workflows/` with the following content:
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-        env:
-          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
-          VITE_OPENAI_API_KEY: ${{secrets.VITE_OPENAI_API_KEY}}
-          VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-```
 
 4. Add your Google Maps API key to your repository secrets:
 
@@ -160,6 +108,7 @@ The following environment variables are required:
 
 - `VITE_APP_GOOGLE_MAPS_API_KEY`: Your Google Maps API key
 - `VITE_APP_API_URL`: Backend API URL (default: http://localhost:3000 for development)
+- `VITE_OPENAI_API_KEY`: Your OpenAI API key for AI-powered features
 
 ## Contributing
 

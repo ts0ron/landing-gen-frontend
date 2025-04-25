@@ -6,6 +6,7 @@ import {
   GlobalStyles,
 } from "@mui/material";
 import AppRoutes from "./routes";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const theme = createTheme({
   palette: {
@@ -65,9 +66,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-      <HashRouter>
-        <AppRoutes />
-      </HashRouter>
+      <AuthProvider>
+        <HashRouter>
+          <AppRoutes />
+        </HashRouter>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
