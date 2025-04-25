@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoginDialog } from "../../components/auth/LoginDialog";
+import { IconFactory, IconID } from "../../icons/IconFactory";
 
 const APP_BAR_HEIGHT = 64;
 
@@ -18,10 +19,7 @@ interface MainLayoutProps {
   title?: string;
 }
 
-const MainLayout = ({
-  children,
-  title = "Landing Page Generator",
-}: MainLayoutProps) => {
+const MainLayout = ({ children, title = "Pagenerate" }: MainLayoutProps) => {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const { user, signOut } = useAuth();
 
@@ -43,18 +41,23 @@ const MainLayout = ({
     >
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
+          <Box
             component={Link}
             to="/"
             sx={{
+              display: "flex",
+              alignItems: "center",
               textDecoration: "none",
               color: "inherit",
               flexGrow: 1,
+              gap: 1,
             }}
           >
-            {title}
-          </Typography>
+            {IconFactory.renderIcon(IconID.PAGENERATE, {
+              sx: { fontSize: 40 },
+            })}
+            <Typography variant="h6">{title}</Typography>
+          </Box>
           <Button
             color="inherit"
             onClick={handleAuthAction}

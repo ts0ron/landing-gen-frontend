@@ -19,10 +19,10 @@ const HomePage = () => {
       }}
     >
       <Typography variant="h2" component="h1">
-        Welcome to Landing Page Generator
+        Welcome to Pagenerate
       </Typography>
       <Typography variant="h5" color="text.secondary">
-        Create beautiful landing pages for your business in minutes
+        Create landing pages for your asset of choice in minutes
       </Typography>
       <Button
         variant="contained"
@@ -30,7 +30,7 @@ const HomePage = () => {
         onClick={() => navigate("/gen")}
         sx={{ mt: 2 }}
       >
-        Start Creating
+        Register a location
       </Button>
     </Box>
   );
