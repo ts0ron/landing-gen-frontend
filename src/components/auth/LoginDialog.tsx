@@ -15,20 +15,34 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 import { useAuth } from "../../contexts/AuthContext";
 import { IconFactory, IconID } from "../../icons/IconFactory";
+import { useNavigate } from "react-router-dom";
 
 interface LoginDialogProps {
   open: boolean;
   onClose: () => void;
+  redirectTo?: string;
 }
 
-export const LoginDialog = ({ open, onClose }: LoginDialogProps) => {
+export const LoginDialog = ({
+  open,
+  onClose,
+  redirectTo,
+}: LoginDialogProps) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
+
+  const handleSuccess = () => {
+    onClose();
+    if (redirectTo) {
+      navigate(redirectTo);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +55,7 @@ export const LoginDialog = ({ open, onClose }: LoginDialogProps) => {
       } else {
         await signInWithEmail(email, password);
       }
-      onClose();
+      handleSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -55,7 +69,7 @@ export const LoginDialog = ({ open, onClose }: LoginDialogProps) => {
 
     try {
       await signInWithGoogle();
-      onClose();
+      handleSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

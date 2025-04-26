@@ -1,8 +1,21 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { LoginDialog } from "../components/auth/LoginDialog";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+
+  const handleRegisterClick = () => {
+    if (user) {
+      navigate("/gen");
+    } else {
+      setLoginDialogOpen(true);
+    }
+  };
 
   return (
     <Box
@@ -27,11 +40,16 @@ const HomePage = () => {
       <Button
         variant="contained"
         size="large"
-        onClick={() => navigate("/gen")}
+        onClick={handleRegisterClick}
         sx={{ mt: 2 }}
       >
         Register a location
       </Button>
+      <LoginDialog
+        open={loginDialogOpen}
+        onClose={() => setLoginDialogOpen(false)}
+        redirectTo="/gen"
+      />
     </Box>
   );
 };
