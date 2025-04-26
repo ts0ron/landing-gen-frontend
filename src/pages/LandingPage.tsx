@@ -54,7 +54,7 @@ const LandingPage = () => {
   }
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper>
       <LandingPageTemplate asset={asset} />
     </Paper>
   );
