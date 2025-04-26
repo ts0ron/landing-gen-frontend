@@ -1,4 +1,4 @@
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import {
   CssBaseline,
   ThemeProvider,
@@ -67,9 +67,9 @@ function App() {
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
       <AuthProvider>
-        <HashRouter>
+        <BrowserRouter basename="/pagenerate">
           <AppRoutes />
-        </HashRouter>
+        </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -108,8 +108,7 @@ const LandingGenerator = () => {
       .registerPlace(placeData)
       .then((response) => {
         console.log(`Registered place with ID: ${response.id}`);
-        // TODO: Add a navigation to the landing page
-        navigate("/land", { state: { placeId: response.id } });
+        navigate(`/land/${response.id}`);
       })
       .catch((error: Error) => {
         console.error("Error registering place:", error);

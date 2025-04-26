@@ -19,7 +19,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/land"
+        path="/land/:assetId"
         element={
           <MainLayout>
             <LandingPage />

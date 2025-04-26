@@ -5,7 +5,7 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/landing-gen-frontend/",
+  base: "/pagenerate/",
   plugins: [
     react(),
     nodePolyfills({
@@ -38,6 +38,12 @@ export default defineConfig({
     },
     outDir: "build",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL("./index.html", import.meta.url)),
+        404: fileURLToPath(new URL("./public/404.html", import.meta.url)),
+      },
+    },
   },
   envPrefix: "VITE_", // Make sure Vite picks up our env variables
 });

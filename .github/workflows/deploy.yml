@@ -27,12 +27,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build and Verify
         env:
           VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
           VITE_APP_API_URL: ${{ secrets.VITE_APP_API_URL }}
           VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
-        run: npm run build
+        run: |
+          npm run build:verify
+          echo "Checking build directory contents:"
+          ls -la build/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
