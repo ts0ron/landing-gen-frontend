@@ -1,4 +1,5 @@
 import { ApiService } from "./ApiService";
+import { Asset } from "../api/AssetService";
 
 export interface GooglePlaceGeometry {
   location: {
@@ -12,10 +13,7 @@ export interface GPlaceRegisterInput {
 }
 
 export class GooglePlaceService extends ApiService {
-  async registerPlace(place: GPlaceRegisterInput): Promise<{ id: string }> {
-    return this.post<{ id: string }, GPlaceRegisterInput>(
-      "/gplace/register",
-      place
-    );
+  async registerPlace(place: GPlaceRegisterInput): Promise<Asset> {
+    return this.post<Asset, GPlaceRegisterInput>("/gplace/register", place);
   }
 }
