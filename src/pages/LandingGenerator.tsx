@@ -7,6 +7,7 @@ import {
   Snackbar,
   useMediaQuery,
   useTheme,
+  Stack,
 } from "@mui/material";
 import { useLoadScript, Libraries } from "@react-google-maps/api";
 import { GooglePlaceService } from "../services/api/GooglePlaceService";
@@ -24,6 +25,13 @@ const googlePlaceService = new GooglePlaceService(
   import.meta.env.VITE_APP_API_URL
 );
 
+interface Location {
+  id: string;
+  url: string;
+  displayName: string;
+  address: string;
+}
+
 const LandingGenerator = () => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -35,7 +43,7 @@ const LandingGenerator = () => {
   );
   const [center, setCenter] = useState(defaultCenter);
   const [submitting, setSubmitting] = useState(false);
-  const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
+  const [generatedLocations, setGeneratedLocations] = useState<Location[]>([]);
   const [showCopySuccess, setShowCopySuccess] = useState(false);
 
   const theme = useTheme();
@@ -69,7 +77,15 @@ const LandingGenerator = () => {
         const url = `${import.meta.env.VITE_APP_HOSTNAME}/pagenerate/land/${
           response.placeId
         }`;
-        setGeneratedUrl(url);
+        setGeneratedLocations([
+          ...generatedLocations,
+          {
+            id: response.placeId,
+            url: url,
+            displayName: place.name || "New Location",
+            address: place.formatted_address || "Address not available",
+          },
+        ]);
       })
       .catch((error: Error) => {
         console.error("Error registering place:", error);
@@ -79,11 +95,9 @@ const LandingGenerator = () => {
       });
   };
 
-  const handleCopyUrl = async () => {
-    if (generatedUrl) {
-      await navigator.clipboard.writeText(generatedUrl);
-      setShowCopySuccess(true);
-    }
+  const handleCopyUrl = async (url: string): Promise<void> => {
+    await navigator.clipboard.writeText(url);
+    setShowCopySuccess(true);
   };
 
   if (!isLoaded) {
@@ -172,12 +186,39 @@ const LandingGenerator = () => {
             </Button>
           </Box>
 
-          {isSmallScreen && generatedUrl && (
-            <UrlDisplay
-              url={generatedUrl}
-              isSmallScreen={isSmallScreen}
-              onCopyUrl={handleCopyUrl}
-            />
+          {isSmallScreen && generatedLocations.length > 0 && (
+            <Box
+              sx={{
+                maxHeight: "min(300px, 100%)",
+                overflowY: "auto",
+                overflowX: "hidden",
+                width: "100%",
+                mt: 2,
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  background: "#f1f1f1",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "#888",
+                  borderRadius: "4px",
+                },
+              }}
+            >
+              <Stack spacing={2} sx={{ width: "100%" }}>
+                {generatedLocations.map((location) => (
+                  <UrlDisplay
+                    key={location.id}
+                    url={location.url}
+                    displayName={location.displayName}
+                    address={location.address}
+                    width={"100%"}
+                    onCopyUrl={() => handleCopyUrl(location.url)}
+                  />
+                ))}
+              </Stack>
+            </Box>
           )}
 
           <GoogleMaps
@@ -194,12 +235,42 @@ const LandingGenerator = () => {
           />
         </Box>
 
-        {!isSmallScreen && generatedUrl && (
-          <UrlDisplay
-            url={generatedUrl}
-            isSmallScreen={isSmallScreen}
-            onCopyUrl={handleCopyUrl}
-          />
+        {!isSmallScreen && generatedLocations.length > 0 && (
+          <Box
+            sx={{
+              maxHeight: "calc(100vh - 200px)",
+              overflowY: "auto",
+              overflowX: "hidden",
+              flex: "1",
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "#f1f1f1",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "#888",
+                borderRadius: "4px",
+              },
+            }}
+          >
+            <Stack
+              id="url-display-stack"
+              spacing={2}
+              sx={{ width: "100%", p: "20px", pt: 0 }}
+            >
+              {generatedLocations.map((location) => (
+                <UrlDisplay
+                  key={location.id}
+                  url={location.url}
+                  displayName={location.displayName}
+                  address={location.address}
+                  width={"100%"}
+                  onCopyUrl={() => handleCopyUrl(location.url)}
+                />
+              ))}
+            </Stack>
+          </Box>
         )}
       </Box>
 

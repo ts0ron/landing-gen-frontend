@@ -1,23 +1,28 @@
-import { Box, Paper, Alert, Typography, IconButton, Link } from "@mui/material";
+import { Box, Paper, Typography, IconButton, Link } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 interface UrlDisplayProps {
   url: string;
-  isSmallScreen?: boolean;
+  displayName: string;
+  address: string;
+  width?: string | number;
   onCopyUrl: () => void;
 }
 
 export const UrlDisplay = ({
   url,
-  isSmallScreen = false,
+  displayName,
+  address,
+  width = "800px",
   onCopyUrl,
 }: UrlDisplayProps) => {
   return (
     <Paper
       elevation={3}
       sx={{
-        width: isSmallScreen ? "100%" : "800px",
+        width: width,
         minWidth: 300,
         p: 3,
         backgroundColor: "#f8f9fa",
@@ -25,17 +30,35 @@ export const UrlDisplay = ({
         alignSelf: "flex-start",
       }}
     >
-      <Alert
-        severity="success"
+      <Typography
+        variant="h6"
         sx={{
-          mb: 2,
-          "& .MuiAlert-message": {
-            width: "100%",
-          },
+          mb: 1,
+          fontWeight: 500,
+          color: "text.primary",
         }}
       >
-        Your landing page has been generated successfully!
-      </Alert>
+        {displayName}
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          mb: 2,
+          color: "text.secondary",
+        }}
+      >
+        <LocationOnIcon sx={{ fontSize: "1rem" }} />
+        <Typography
+          variant="body2"
+          sx={{
+            fontStyle: "italic",
+          }}
+        >
+          {address}
+        </Typography>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -43,10 +66,16 @@ export const UrlDisplay = ({
           gap: 1,
           p: 2,
           backgroundColor: "#fff",
-          borderRadius: 1,
-          border: "1px solid #e0e0e0",
+          borderRadius: 2,
+          border: "1px solid rgba(0, 0, 0, 0.08)",
           width: "100%",
           overflow: "hidden",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
+          transition: "all 0.2s ease-in-out",
+          "&:hover": {
+            border: "1px solid rgba(0, 0, 0, 0.12)",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.04)",
+          },
         }}
       >
         <Box
@@ -64,6 +93,7 @@ export const UrlDisplay = ({
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
               width: "100%",
+              color: "#1976d2",
             }}
           >
             {url}
@@ -72,27 +102,45 @@ export const UrlDisplay = ({
         <Box
           sx={{
             display: "flex",
-            gap: 0.5,
+            gap: 1,
             flexShrink: 0,
           }}
         >
           <IconButton
             size="small"
             onClick={onCopyUrl}
-            sx={{ color: "primary.main" }}
+            sx={{
+              color: "#6366f1",
+              backgroundColor: "rgba(99, 102, 241, 0.04)",
+              borderRadius: 1.5,
+              padding: "8px",
+              "&:hover": {
+                backgroundColor: "rgba(99, 102, 241, 0.12)",
+              },
+              transition: "all 0.2s ease-in-out",
+            }}
             title="Copy URL"
           >
-            <ContentCopyIcon />
+            <ContentCopyIcon sx={{ fontSize: "1.1rem" }} />
           </IconButton>
           <IconButton
             size="small"
             component={Link}
             href={url}
             target="_blank"
-            sx={{ color: "primary.main" }}
+            sx={{
+              color: "#06b6d4",
+              backgroundColor: "rgba(6, 182, 212, 0.04)",
+              borderRadius: 1.5,
+              padding: "8px",
+              "&:hover": {
+                backgroundColor: "rgba(6, 182, 212, 0.12)",
+              },
+              transition: "all 0.2s ease-in-out",
+            }}
             title="Open in new tab"
           >
-            <OpenInNewIcon />
+            <OpenInNewIcon sx={{ fontSize: "1.1rem" }} />
           </IconButton>
         </Box>
       </Box>
