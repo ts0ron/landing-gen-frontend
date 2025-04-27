@@ -109,10 +109,10 @@ export interface Asset {
 
 export class AssetService extends ApiService {
   async getAsset(id: string): Promise<Asset> {
-    return this.get<Asset>(`/asset/${id}`);
+    return this.get<Asset>(`/api/asset/${id}`);
   }
 
   async deleteAsset(id: string): Promise<void> {
-    return this.delete(`/asset/${id}`);
+    return this.delete(`/api/asset/${id}`);
   }
 }
