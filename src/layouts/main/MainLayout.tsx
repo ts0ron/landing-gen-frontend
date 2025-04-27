@@ -49,7 +49,6 @@ const MainLayout = ({ children, title = "Pagenerate" }: MainLayoutProps) => {
               alignItems: "center",
               textDecoration: "none",
               color: "inherit",
-              flexGrow: 1,
               gap: 1,
             }}
           >
@@ -58,6 +57,7 @@ const MainLayout = ({ children, title = "Pagenerate" }: MainLayoutProps) => {
             })}
             <Typography variant="h6">{title}</Typography>
           </Box>
+          <Box sx={{ flexGrow: 1 }} />
           <Button
             color="inherit"
             onClick={handleAuthAction}

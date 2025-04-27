@@ -658,17 +658,7 @@ const LandingPageTemplate = ({ asset }: LandingPageTemplateProps) => {
 
             {/* Reviews Section */}
             {hasReviews ? (
-              <Box
-                sx={{
-                  bgcolor: "rgba(255, 253, 250, 1)",
-                  borderRadius: 2,
-                  p: 2,
-                  boxShadow: 1,
-                  height: asset.aiDescription ? "calc(100% - 140px)" : "100%",
-                }}
-              >
-                <ReviewsSection reviews={asset.reviews!} />
-              </Box>
+              <ReviewsSection reviews={asset.reviews!} />
             ) : (
               <Box sx={{ mb: 3 }}>
                 <Typography
