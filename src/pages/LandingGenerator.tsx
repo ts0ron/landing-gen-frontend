@@ -44,7 +44,10 @@ const LandingGenerator = () => {
   const [center, setCenter] = useState(defaultCenter);
   const [submitting, setSubmitting] = useState(false);
   const [generatedLocations, setGeneratedLocations] = useState<Location[]>([]);
-  const [showCopySuccess, setShowCopySuccess] = useState(false);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -63,6 +66,18 @@ const LandingGenerator = () => {
 
   const handleGenerateLandingPage = () => {
     if (!place || !place.place_id) return;
+
+    // Check if place_id already exists in generatedLocations
+    const isDuplicate = generatedLocations.some(
+      (location) => location.id === place.place_id
+    );
+    if (isDuplicate) {
+      setNotification({
+        message: "This location has already been registered",
+        type: "error",
+      });
+      return;
+    }
 
     setSubmitting(true);
 
@@ -97,7 +112,10 @@ const LandingGenerator = () => {
 
   const handleCopyUrl = async (url: string): Promise<void> => {
     await navigator.clipboard.writeText(url);
-    setShowCopySuccess(true);
+    setNotification({
+      message: "URL copied to clipboard!",
+      type: "success",
+    });
   };
 
   if (!isLoaded) {
@@ -275,11 +293,17 @@ const LandingGenerator = () => {
       </Box>
 
       <Snackbar
-        open={showCopySuccess}
+        open={!!notification}
         autoHideDuration={2000}
-        onClose={() => setShowCopySuccess(false)}
-        message="URL copied to clipboard!"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        onClose={() => setNotification(null)}
+        message={notification?.message}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            bgcolor:
+              notification?.type === "error" ? "error.main" : "success.main",
+          },
+        }}
       />
     </Box>
   );
