@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import AppRoutes from "./routes";
 import { AuthProvider } from "./contexts/AuthContext";
+import { MapsProvider } from "./providers/MapsProvider";
 
 const theme = createTheme({
   palette: {
@@ -67,9 +68,11 @@ function App() {
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
       <AuthProvider>
-        <BrowserRouter basename="/pagenerate">
-          <AppRoutes />
-        </BrowserRouter>
+        <MapsProvider>
+          <BrowserRouter basename="/pagenerate">
+            <AppRoutes />
+          </BrowserRouter>
+        </MapsProvider>
       </AuthProvider>
     </ThemeProvider>
   );
