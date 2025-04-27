@@ -14,6 +14,6 @@ export interface GPlaceRegisterInput {
 
 export class GooglePlaceService extends ApiService {
   async registerPlace(place: GPlaceRegisterInput): Promise<Asset> {
-    return this.post<Asset, GPlaceRegisterInput>("/gplace/register", place);
+    return this.post<Asset, GPlaceRegisterInput>("/api/gplace/register", place);
   }
 }
