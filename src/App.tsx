@@ -1,44 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
-import {
-  CssBaseline,
-  ThemeProvider,
-  createTheme,
-  GlobalStyles,
-} from "@mui/material";
+import { GlobalStyles } from "@mui/material";
 import AppRoutes from "./routes";
 import { AuthProvider } from "./contexts/AuthContext";
 import { MapsProvider } from "./providers/MapsProvider";
-
-const theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#1976d2",
-    },
-    secondary: {
-      main: "#dc004e",
-    },
-    background: {
-      default: "#f5f5f5",
-      paper: "#ffffff",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          minHeight: "100vh",
-          width: "100%",
-          margin: 0,
-          padding: 0,
-        },
-      },
-    },
-  },
-});
+import { CustomThemeProviderWrapper } from "./providers/CustomThemeProvider";
 
 const globalStyles = {
   "*": {
@@ -64,8 +29,7 @@ const globalStyles = {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <CustomThemeProviderWrapper>
       <GlobalStyles styles={globalStyles} />
       <AuthProvider>
         <MapsProvider>
@@ -74,7 +38,7 @@ function App() {
           </BrowserRouter>
         </MapsProvider>
       </AuthProvider>
-    </ThemeProvider>
+    </CustomThemeProviderWrapper>
   );
 }
 

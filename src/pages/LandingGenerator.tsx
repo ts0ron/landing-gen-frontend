@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import { GooglePlaceService } from "../services/api/GooglePlaceService";
 import { UrlDisplay } from "../components/UrlDisplay";
 import { GPlaceAutocomplete } from "../components/assetsautocompletes/GPlaceAutocomplete";
 import { GoogleMaps } from "../components/views/maps/GoogleMaps";
+import useCustomTheme from "../hooks/useTheme";
 
 const defaultCenter = {
   lat: 40.7128,
@@ -33,10 +34,16 @@ interface Location {
 }
 
 const LandingGenerator = () => {
+  const { setTheme } = useCustomTheme();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+
+  // Set default theme
+  useEffect(() => {
+    setTheme("Default");
+  }, [setTheme]);
 
   const [place, setPlace] = useState<google.maps.places.PlaceResult | null>(
     null

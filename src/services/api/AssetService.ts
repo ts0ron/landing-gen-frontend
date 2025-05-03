@@ -218,6 +218,14 @@ export interface AssetReview {
   authorAttribution: ReviewAuthorAttribution;
 }
 
+export type Category =
+  | "Cultural"
+  | "Entertainment"
+  | "Commerce"
+  | "Transportation"
+  | "PublicServices"
+  | "Default";
+
 /**
  * Asset document interface
  */
@@ -232,6 +240,7 @@ export interface Asset {
   userRatingCount?: number;
   googleMapsUri: string;
   websiteUri?: string;
+  category?: Category;
 
   // Opening hours
   regularOpeningHours?: RegularOpeningHours;

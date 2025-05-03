@@ -1,7 +1,7 @@
 import { Box, Typography, Grid } from "@mui/material";
 import { Place } from "@mui/icons-material";
 import { Asset } from "../../services/api/AssetService";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { ReviewsSection } from "../../components/reviews/ReviewsSection";
 import { GoogleMaps } from "../../components/views/maps/GoogleMaps";
 import { AssetMetadata } from "../../components/AssetMetadata";
@@ -11,6 +11,7 @@ import { HeroSection } from "../../components/sections/HeroSection";
 import { QuickInfoSection } from "../../components/sections/QuickInfoSection";
 import { CallToAction } from "../../components/sections/CallToAction";
 import { AiDescription } from "../../components/sections/AiDescription";
+import useCustomTheme from "../../hooks/useTheme";
 import {
   GROUP_BOX_BG,
   GROUP_BOX_RADIUS,
@@ -40,6 +41,13 @@ const LandingPageTemplate = ({
   asset,
   googleMapsApiKey,
 }: LandingPageTemplateProps) => {
+  const { setTheme } = useCustomTheme();
+
+  // Set theme based on asset category
+  useEffect(() => {
+    setTheme(asset.category || "Default");
+  }, [asset.category, setTheme]);
+
   // Select a random gradient pair on component mount
   const randomGradient = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * gradientPairs.length);

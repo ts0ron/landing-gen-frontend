@@ -69,7 +69,10 @@ export const GPlaceAutocomplete = ({
     <Autocomplete
       options={options}
       loading={loading}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.name || option.place_id}
+      isOptionEqualToValue={(option, value) =>
+        option.place_id === value.place_id
+      }
       filterOptions={(x) => x}
       onChange={(_, value) => handlePlaceSelect(value)}
       onInputChange={(_, value) => {
@@ -100,7 +103,7 @@ export const GPlaceAutocomplete = ({
         />
       )}
       renderOption={(props, option) => (
-        <li {...props}>
+        <li {...props} key={option.place_id}>
           <Box>
             <Typography variant="body1">{option.name}</Typography>
             <Typography variant="caption" color="text.secondary">

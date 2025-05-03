@@ -1,13 +1,20 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { LoginDialog } from "../components/auth/LoginDialog";
+import useCustomTheme from "../hooks/useTheme";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { setTheme } = useCustomTheme();
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+
+  // Set default theme
+  useEffect(() => {
+    setTheme("Default");
+  }, [setTheme]);
 
   const handleRegisterClick = () => {
     if (user) {
