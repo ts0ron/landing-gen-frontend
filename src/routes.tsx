@@ -4,6 +4,7 @@ import LandingGenerator from "./pages/LandingGenerator";
 import LandingPage from "./pages/LandingPage";
 import MainLayout from "./layouts/main/MainLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import ApiDocs from "./pages/ApiDocs";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,14 @@ const AppRoutes = () => {
         element={
           <MainLayout>
             <LandingPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/docs"
+        element={
+          <MainLayout>
+            <ApiDocs />
           </MainLayout>
         }
       />
