@@ -78,7 +78,7 @@ const LandingPageTemplate = ({
         py: 3,
       }}
     >
-      <Box sx={{ maxWidth: 1200, mx: "auto", px: 2 }}>
+      <Box sx={{ mx: "auto", px: "20px" }}>
         {/* Hero Section */}
         <HeroSection
           displayName={asset.displayName.text}
@@ -94,81 +94,113 @@ const LandingPageTemplate = ({
           googleMapsUri={asset.googleMapsUri}
         />
 
-        {/* Photo Gallery */}
-        {asset.photos && asset.photos.length > 0 && (
-          <PhotoGallery
-            photos={asset.photos}
-            assetName={asset.displayName.text}
-            customizeUrl={customizePhotoUrl}
-          />
-        )}
-
         {/* Main Content Grid */}
-        <Grid container spacing={3} sx={{ mb: 3 }}>
+        <Grid container sx={{ mb: 3 }}>
           {/* Left Column */}
-          <Grid item xs={12} md={8} sx={{ height: "100%" }}>
+          <Grid item xs={12} md={12} sx={{ height: "100%" }}>
             {/* Editorial Summary */}
             {asset.editorialSummary && (
               <EditorialSummary summary={asset.editorialSummary.text} />
             )}
 
-            {/* AI Description */}
-            {asset.aiDescription && (
-              <AiDescription description={asset.aiDescription} />
-            )}
+            <Box sx={{ display: "flex", gap: 2 }}>
+              {/* AI Description */}
+              {asset.aiDescription && (
+                <AiDescription description={asset.aiDescription} />
+              )}
 
+              <Box
+                sx={{
+                  minWidth: "500px",
+                  bgcolor: "rgba(255, 253, 250, 1)",
+                  borderRadius: 2,
+                  p: 2,
+                  boxShadow: 1,
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <AssetMetadata asset={asset} />
+              </Box>
+            </Box>
+
+            {/* Photo Gallery */}
+            {asset.photos && asset.photos.length > 0 && (
+              <PhotoGallery
+                photos={asset.photos}
+                assetName={asset.displayName.text}
+                customizeUrl={customizePhotoUrl}
+              />
+            )}
             {/* Features Grid */}
-            <FeaturesGrid
+            {/* <FeaturesGrid
               accessibilityOptions={asset.accessibilityOptions}
               parkingOptions={asset.parkingOptions}
               paymentOptions={asset.paymentOptions}
               dineInOptions={asset.dineInOptions}
-            />
+            /> */}
 
-            {/* Reviews Section */}
-            {asset.reviews && asset.reviews.length > 0 && (
-              <ReviewsSection
-                reviews={asset.reviews.map((review) => ({
-                  author_name: review.authorAttribution.displayName,
-                  rating: review.rating,
-                  relative_time_description:
-                    review.relativePublishTimeDescription,
-                  text: review.text.text,
-                }))}
-              />
-            )}
+            <Box sx={{ display: "flex", gap: 2, padding: "20px" }}>
+              {/* Reviews Section */}
+              {asset.reviews && asset.reviews.length > 0 && (
+                <Box sx={{ minWidth: "50%" }}>
+                  <ReviewsSection
+                    reviews={asset.reviews.map((review) => ({
+                      author_name: review.authorAttribution.displayName,
+                      rating: review.rating,
+                      relative_time_description:
+                        review.relativePublishTimeDescription,
+                      text: review.text.text,
+                    }))}
+                  />
+                </Box>
+              )}
 
-            {/* Map Section */}
-            <Box sx={{ mb: 3 }}>
-              <Typography
-                variant="h6"
-                sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <Place /> Location
-              </Typography>
+              {/* Map Section */}
               <Box
                 sx={{
-                  height: 400,
-                  width: "100%",
-                  borderRadius: 2,
-                  overflow: "hidden",
+                  minWidth: "50%",
+                  height: "100%",
+                  justifyContent: "space-between",
                 }}
               >
-                <GoogleMaps
-                  center={center}
-                  hasMarker={true}
+                <Typography
+                  variant="h6"
                   sx={{
-                    height: "100%",
+                    mb: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    color: "primary.main",
+                  }}
+                >
+                  <Place /> Location
+                </Typography>
+                <Box
+                  sx={{
+                    height: 400,
                     width: "100%",
                     borderRadius: 2,
+                    overflow: "hidden",
                   }}
-                />
+                >
+                  <GoogleMaps
+                    center={center}
+                    hasMarker={true}
+                    sx={{
+                      height: "100%",
+                      width: "100%",
+                      borderRadius: 2,
+                    }}
+                  />
+                </Box>
               </Box>
             </Box>
           </Grid>
 
           {/* Right Column */}
-          <Grid item xs={12} md={4} sx={{ height: "100%" }}>
+          {/* <Grid item xs={12} md={4} sx={{ height: "100%" }}>
             <Box
               sx={{
                 bgcolor: "rgba(255, 253, 250, 1)",
@@ -182,7 +214,7 @@ const LandingPageTemplate = ({
             >
               <AssetMetadata asset={asset} />
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
 
         {/* Call to Action */}

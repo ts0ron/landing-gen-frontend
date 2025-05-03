@@ -48,6 +48,7 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
             display: "flex",
             alignItems: "center",
             gap: 1,
+            color: "primary.main",
           }}
         >
           <Business /> Business Info
@@ -103,6 +104,7 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
               display: "flex",
               alignItems: "center",
               gap: 1,
+              color: "primary.main",
             }}
           >
             <LocalOffer /> Categories & Tags
