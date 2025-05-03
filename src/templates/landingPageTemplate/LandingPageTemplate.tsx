@@ -7,11 +7,15 @@ import { GoogleMaps } from "../../components/views/maps/GoogleMaps";
 import { AssetMetadata } from "../../components/AssetMetadata";
 import { PhotoGallery } from "../../components/gallery/PhotoGallery";
 import { EditorialSummary } from "../../components/editorial/EditorialSummary";
-import { FeaturesGrid } from "../../components/features/FeaturesGrid";
 import { HeroSection } from "../../components/sections/HeroSection";
 import { QuickInfoSection } from "../../components/sections/QuickInfoSection";
 import { CallToAction } from "../../components/sections/CallToAction";
 import { AiDescription } from "../../components/sections/AiDescription";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+  GROUP_BOX_SHADOW,
+} from "../../constants/constantPalette";
 
 // Predefined gradient pairs that look good together
 const gradientPairs = [
@@ -112,10 +116,10 @@ const LandingPageTemplate = ({
               <Box
                 sx={{
                   minWidth: "500px",
-                  bgcolor: "rgba(255, 253, 250, 1)",
-                  borderRadius: 2,
+                  bgcolor: GROUP_BOX_BG,
+                  borderRadius: GROUP_BOX_RADIUS,
                   p: 2,
-                  boxShadow: 1,
+                  boxShadow: GROUP_BOX_SHADOW,
                   height: "100%",
                   display: "flex",
                 }}
@@ -140,7 +144,7 @@ const LandingPageTemplate = ({
               dineInOptions={asset.dineInOptions}
             /> */}
 
-            <Box sx={{ display: "flex", gap: 2, padding: "20px" }}>
+            <Box sx={{ display: "flex", gap: 2, pr: "16px" }}>
               {/* Reviews Section */}
               {asset.reviews && asset.reviews.length > 0 && (
                 <Box sx={{ minWidth: "50%" }}>
@@ -161,38 +165,51 @@ const LandingPageTemplate = ({
                 sx={{
                   minWidth: "50%",
                   height: "100%",
-                  justifyContent: "space-between",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{
-                    mb: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    color: "primary.main",
-                  }}
-                >
-                  <Place /> Location
-                </Typography>
                 <Box
                   sx={{
-                    height: 400,
-                    width: "100%",
-                    borderRadius: 2,
-                    overflow: "hidden",
+                    bgcolor: GROUP_BOX_BG,
+                    borderRadius: GROUP_BOX_RADIUS,
+                    p: 2,
+                    boxShadow: GROUP_BOX_SHADOW,
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  <GoogleMaps
-                    center={center}
-                    hasMarker={true}
+                  <Typography
+                    variant="h6"
                     sx={{
-                      height: "100%",
-                      width: "100%",
-                      borderRadius: 2,
+                      mb: 2,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      color: "primary.main",
                     }}
-                  />
+                  >
+                    <Place /> Location
+                  </Typography>
+                  <Box
+                    sx={{
+                      height: 400,
+                      width: "100%",
+                      borderRadius: GROUP_BOX_RADIUS,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <GoogleMaps
+                      center={center}
+                      hasMarker={true}
+                      sx={{
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: GROUP_BOX_RADIUS,
+                      }}
+                    />
+                  </Box>
                 </Box>
               </Box>
             </Box>

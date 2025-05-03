@@ -1,5 +1,9 @@
 import { Box, Typography, Paper, Divider } from "@mui/material";
 import { Article } from "@mui/icons-material";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+} from "../../constants/constantPalette";
 
 interface EditorialSummaryProps {
   summary: string;
@@ -12,8 +16,8 @@ export const EditorialSummary = ({ summary }: EditorialSummaryProps) => {
       sx={{
         p: 3,
         mb: 3,
-        bgcolor: "background.paper",
-        borderRadius: 2,
+        bgcolor: GROUP_BOX_BG,
+        borderRadius: GROUP_BOX_RADIUS,
       }}
     >
       <Box

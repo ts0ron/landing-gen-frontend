@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Box, Typography, Stack, IconButton, Collapse } from "@mui/material";
 import { ExpandMore, Star } from "@mui/icons-material";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+  GROUP_BOX_SHADOW,
+} from "../../constants/constantPalette";
 
 interface Review {
   author_name: string;
@@ -19,10 +24,10 @@ export const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
   return (
     <Box
       sx={{
-        bgcolor: "rgba(255, 253, 250, 1)",
-        borderRadius: 2,
+        bgcolor: GROUP_BOX_BG,
+        borderRadius: GROUP_BOX_RADIUS,
         p: 2,
-        boxShadow: 1,
+        boxShadow: GROUP_BOX_SHADOW,
         height: "100%",
       }}
     >

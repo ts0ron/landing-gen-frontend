@@ -11,6 +11,11 @@ import {
   PaymentOptions,
   DineInOptions,
 } from "../../services/api/AssetService";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+  GROUP_BOX_SHADOW,
+} from "../../constants/constantPalette";
 
 interface FeaturesGridProps {
   accessibilityOptions?: AccessibilityOptions;
@@ -33,9 +38,9 @@ export const FeaturesGrid = ({
           <Box
             sx={{
               p: 2,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 1,
+              bgcolor: GROUP_BOX_BG,
+              borderRadius: GROUP_BOX_RADIUS,
+              boxShadow: GROUP_BOX_SHADOW,
             }}
           >
             <Typography
@@ -73,9 +78,9 @@ export const FeaturesGrid = ({
           <Box
             sx={{
               p: 2,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 1,
+              bgcolor: GROUP_BOX_BG,
+              borderRadius: GROUP_BOX_RADIUS,
+              boxShadow: GROUP_BOX_SHADOW,
             }}
           >
             <Typography
@@ -119,9 +124,9 @@ export const FeaturesGrid = ({
           <Box
             sx={{
               p: 2,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 1,
+              bgcolor: GROUP_BOX_BG,
+              borderRadius: GROUP_BOX_RADIUS,
+              boxShadow: GROUP_BOX_SHADOW,
             }}
           >
             <Typography
@@ -159,9 +164,9 @@ export const FeaturesGrid = ({
           <Box
             sx={{
               p: 2,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 1,
+              bgcolor: GROUP_BOX_BG,
+              borderRadius: GROUP_BOX_RADIUS,
+              boxShadow: GROUP_BOX_SHADOW,
             }}
           >
             <Typography

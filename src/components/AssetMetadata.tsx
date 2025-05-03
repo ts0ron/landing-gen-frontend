@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Stack } from "@mui/material";
+import { Box, Typography, Chip } from "@mui/material";
 import {
   Star,
   AccessibleForward,
@@ -6,6 +6,7 @@ import {
   LocalOffer,
 } from "@mui/icons-material";
 import { Asset } from "../services/api/AssetService";
+import { GROUP_BOX_BG, GROUP_BOX_RADIUS } from "../constants/constantPalette";
 
 interface AssetMetadataProps {
   asset: Asset;
@@ -37,8 +38,8 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
       <Box
         sx={{
           p: 2,
-          bgcolor: "background.paper",
-          borderRadius: 1,
+          bgcolor: GROUP_BOX_BG,
+          borderRadius: GROUP_BOX_RADIUS,
         }}
       >
         <Typography
@@ -93,8 +94,8 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
         <Box
           sx={{
             p: 2,
-            bgcolor: "background.paper",
-            borderRadius: 1,
+            bgcolor: GROUP_BOX_BG,
+            borderRadius: GROUP_BOX_RADIUS,
           }}
         >
           <Typography

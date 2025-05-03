@@ -55,7 +55,10 @@ const LandingPage = () => {
 
   return (
     <Paper>
-      <LandingPageTemplate asset={asset} />
+      <LandingPageTemplate
+        asset={asset}
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ""}
+      />
     </Paper>
   );
 };

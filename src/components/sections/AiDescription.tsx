@@ -1,5 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+  GROUP_BOX_SHADOW,
+} from "../../constants/constantPalette";
 
 interface AiDescriptionProps {
   description: string;
@@ -10,10 +15,10 @@ export const AiDescription = ({ description }: AiDescriptionProps) => {
     <Box
       sx={{
         mb: 3,
-        bgcolor: "rgba(255, 253, 250, 1)",
-        borderRadius: 2,
+        bgcolor: GROUP_BOX_BG,
+        borderRadius: GROUP_BOX_RADIUS,
         p: 2,
-        boxShadow: 1,
+        boxShadow: GROUP_BOX_SHADOW,
       }}
     >
       <Typography variant="h6" sx={{ mb: 1, color: "primary.main" }}>
