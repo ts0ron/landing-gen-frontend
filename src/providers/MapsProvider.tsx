@@ -11,10 +11,13 @@ const MapsContext = createContext<MapsContextType>({
   loadError: undefined,
 });
 
+// Define libraries as a constant outside the component
+const GOOGLE_MAPS_LIBRARIES = ["places"] as "places"[];
+
 export const MapsProvider = ({ children }: { children: React.ReactNode }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    libraries: ["places"],
+    libraries: GOOGLE_MAPS_LIBRARIES,
   });
 
   return (

@@ -1,14 +1,17 @@
-import { Box, Typography, Grid, Button } from "@mui/material";
-import { Place, Language, AccessTime } from "@mui/icons-material";
+import { Grid, Button } from "@mui/material";
+import { Place, Language } from "@mui/icons-material";
+import { OpeningHoursDisplay } from "../OpeningHoursDisplay";
 
 interface QuickInfoSectionProps {
   openingHours?: string;
+  allOpeningHours?: string[];
   websiteUri?: string;
   googleMapsUri?: string;
 }
 
 export const QuickInfoSection = ({
   openingHours,
+  allOpeningHours,
   websiteUri,
   googleMapsUri,
 }: QuickInfoSectionProps) => {
@@ -16,30 +19,10 @@ export const QuickInfoSection = ({
     <Grid container spacing={2} sx={{ mb: 3 }}>
       {openingHours && (
         <Grid item xs={12} sm={6} md={4}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              height: 48,
-              px: 2,
-              bgcolor: "background.paper",
-              borderRadius: 1,
-              boxShadow: 1,
-              transition: "box-shadow 0.2s",
-              "&:hover": {
-                boxShadow: 2,
-              },
-            }}
-          >
-            <AccessTime color="primary" />
-            <Box>
-              <Typography variant="subtitle2" fontWeight="bold">
-                Today's Hours
-              </Typography>
-              <Typography variant="body2">{openingHours}</Typography>
-            </Box>
-          </Box>
+          <OpeningHoursDisplay
+            openingHours={openingHours}
+            allOpeningHours={allOpeningHours}
+          />
         </Grid>
       )}
 

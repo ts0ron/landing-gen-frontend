@@ -22,7 +22,6 @@ const LandingPage = () => {
 
       try {
         const assetData = await assetService.getAsset(assetId);
-        console.log("assetData", assetData);
         setAsset(assetData);
       } catch (err) {
         setError("Failed to fetch asset data");

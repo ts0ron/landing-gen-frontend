@@ -94,6 +94,7 @@ const LandingPageTemplate = ({
         {/* Quick Info Section */}
         <QuickInfoSection
           openingHours={getTodayHoursOnly()}
+          allOpeningHours={asset.regularOpeningHours?.weekdayDescriptions}
           websiteUri={asset.websiteUri}
           googleMapsUri={asset.googleMapsUri}
         />
@@ -136,13 +137,6 @@ const LandingPageTemplate = ({
                 customizeUrl={customizePhotoUrl}
               />
             )}
-            {/* Features Grid */}
-            {/* <FeaturesGrid
-              accessibilityOptions={asset.accessibilityOptions}
-              parkingOptions={asset.parkingOptions}
-              paymentOptions={asset.paymentOptions}
-              dineInOptions={asset.dineInOptions}
-            /> */}
 
             <Box sx={{ display: "flex", gap: 2, pr: "16px" }}>
               {/* Reviews Section */}
