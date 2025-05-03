@@ -103,7 +103,7 @@ const LandingPageTemplate = ({
               <EditorialSummary summary={asset.editorialSummary.text} />
             )}
 
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, minHeight: "500px" }}>
               {/* AI Description */}
               {asset.aiDescription && (
                 <AiDescription description={asset.aiDescription} />
@@ -118,7 +118,6 @@ const LandingPageTemplate = ({
                   boxShadow: 1,
                   height: "100%",
                   display: "flex",
-                  flexDirection: "column",
                 }}
               >
                 <AssetMetadata asset={asset} />

@@ -25,12 +25,12 @@ const renderPriceLevel = (level?: string) => {
 
 export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
   return (
-    <Stack
-      spacing={2}
+    <Box
       sx={{
-        height: "100%",
+        minHeight: "100%",
         display: "flex",
         justifyContent: "space-between",
+        flexDirection: "column",
       }}
     >
       {/* Business Info Card */}
@@ -130,6 +130,6 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
           </Box>
         </Box>
       )}
-    </Stack>
+    </Box>
   );
 };
