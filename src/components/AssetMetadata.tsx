@@ -6,7 +6,11 @@ import {
   LocalOffer,
 } from "@mui/icons-material";
 import { Asset } from "../services/api/AssetService";
-import { GROUP_BOX_BG, GROUP_BOX_RADIUS } from "../constants/constantPalette";
+import {
+  GROUP_BOX_BG,
+  GROUP_BOX_RADIUS,
+  GROUP_BOX_SHADOW,
+} from "../constants/constantPalette";
 
 interface AssetMetadataProps {
   asset: Asset;
@@ -28,20 +32,19 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
   return (
     <Box
       sx={{
-        minHeight: "100%",
+        minWidth: "500px",
+        bgcolor: GROUP_BOX_BG,
+        borderRadius: GROUP_BOX_RADIUS,
+        p: 2,
+        boxShadow: GROUP_BOX_SHADOW,
+        height: "470px",
         display: "flex",
-        justifyContent: "space-between",
         flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       {/* Business Info Card */}
-      <Box
-        sx={{
-          p: 2,
-          bgcolor: GROUP_BOX_BG,
-          borderRadius: GROUP_BOX_RADIUS,
-        }}
-      >
+      <Box>
         <Typography
           variant="h6"
           sx={{
@@ -91,13 +94,7 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
 
       {/* Tags/Types */}
       {((asset.types?.length ?? 0) > 0 || (asset.aiTags?.length ?? 0) > 0) && (
-        <Box
-          sx={{
-            p: 2,
-            bgcolor: GROUP_BOX_BG,
-            borderRadius: GROUP_BOX_RADIUS,
-          }}
-        >
+        <Box>
           <Typography
             variant="h6"
             sx={{

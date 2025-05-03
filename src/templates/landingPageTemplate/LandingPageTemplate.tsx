@@ -116,25 +116,16 @@ const LandingPageTemplate = ({
               <EditorialSummary summary={asset.editorialSummary.text} />
             )}
 
-            <Box sx={{ display: "flex", gap: 2, minHeight: "500px" }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
               {/* AI Description */}
               {asset.aiDescription && (
                 <AiDescription description={asset.aiDescription} />
               )}
 
-              <Box
-                sx={{
-                  minWidth: "500px",
-                  bgcolor: GROUP_BOX_BG,
-                  borderRadius: GROUP_BOX_RADIUS,
-                  p: 2,
-                  boxShadow: GROUP_BOX_SHADOW,
-                  height: "100%",
-                  display: "flex",
-                }}
-              >
-                <AssetMetadata asset={asset} />
-              </Box>
+              {/* <Box> */}
+
+              <AssetMetadata asset={asset} />
+              {/* </Box> */}
             </Box>
 
             {/* Photo Gallery */}
