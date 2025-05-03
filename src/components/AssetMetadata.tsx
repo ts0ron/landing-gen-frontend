@@ -11,9 +11,16 @@ interface AssetMetadataProps {
   asset: Asset;
 }
 
-const renderPriceLevel = (level?: number) => {
+const renderPriceLevel = (level?: string) => {
   if (!level) return null;
-  return "💰".repeat(level);
+  const priceMap: Record<string, string> = {
+    PRICE_LEVEL_FREE: "💰",
+    PRICE_LEVEL_INEXPENSIVE: "💰💰",
+    PRICE_LEVEL_MODERATE: "💰💰💰",
+    PRICE_LEVEL_EXPENSIVE: "💰💰💰💰",
+    PRICE_LEVEL_VERY_EXPENSIVE: "💰💰💰💰💰",
+  };
+  return priceMap[level] || null;
 };
 
 export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
@@ -63,16 +70,16 @@ export const AssetMetadata = ({ asset }: AssetMetadataProps) => {
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Star sx={{ color: "gold" }} />
               <Typography>{asset.rating} / 5</Typography>
-              {asset.userRatingsTotal && (
+              {asset.userRatingCount && (
                 <Typography variant="caption">
-                  ({asset.userRatingsTotal} reviews)
+                  ({asset.userRatingCount} reviews)
                 </Typography>
               )}
             </Box>
           </Box>
         )}
 
-        {asset.wheelchairAccessibleEntrance && (
+        {asset.accessibilityOptions?.wheelchairAccessibleEntrance && (
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <AccessibleForward color="primary" />
             <Typography>Wheelchair Accessible</Typography>
