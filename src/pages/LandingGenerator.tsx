@@ -96,7 +96,7 @@ const LandingGenerator = () => {
       .registerPlace(placeData)
       .then((response) => {
         console.log(`Registered place with response:`, response);
-        const url = `${import.meta.env.VITE_APP_HOSTNAME}/pagenerate/land/${
+        const url = `${import.meta.env.VITE_APP_HOSTNAME}/land/${
           response.externalId
         }`;
         setGeneratedLocations([
