@@ -167,8 +167,8 @@ npm install
 VITE_GOOGLE_MAPS_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 # Backend API Configuration
-VITE_APP_API_URL=http://localhost:3000
-VITE_APP_HOSTNAME=http://localhost:5173
+VITE_APP_API_URL=http://localhost:3000 --- or per deployment
+VITE_APP_HOSTNAME=http://localhost:5173 --- or per deployment
 
 # OpenAI API Configuration
 VITE_OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
