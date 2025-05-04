@@ -1,19 +1,134 @@
-# Business Landing Page Generator
+# Landing Page Generator
 
-A React application that generates landing pages for locations using Google Places data (and maybe other APIs later on..). Built with Vite, TypeScript, and Material UI.
+A flexible and extensible React application that generates dynamic landing pages for various location-based assets. Initially focused on Google Places integration, the application is designed with a modular architecture to easily incorporate additional asset providers in the future.
+
+## Dynamic Theming System
+
+Our application implements a sophisticated theming system that allows for dynamic styling based on asset categories. This is achieved through:
+
+1. **CustomThemeProvider**: A React context provider that manages theme state and provides theme configuration to all components
+2. **Category-Based Themes**: Each asset category (e.g., restaurant, hotel, real estate) can have its own theme configuration
+3. **Material UI Integration**: Themes are built on top of Material UI's theming system, allowing for consistent component styling
+4. **Dynamic Theme Switching**: Themes can be changed at runtime based on the asset category
+
+### Theme Configuration Example
+
+```typescript
+// Example theme configuration for different asset categories
+const categoryThemes = {
+  restaurant: {
+    palette: {
+      primary: {
+        main: "#FF4B2B",
+        light: "#FF6B4B",
+        dark: "#CC3B22",
+      },
+      secondary: {
+        main: "#2B2B2B",
+        light: "#4B4B4B",
+        dark: "#1B1B1B",
+      },
+    },
+    typography: {
+      h1: {
+        fontFamily: "Playfair Display, serif",
+        fontWeight: 700,
+      },
+    },
+  },
+  realEstate: {
+    palette: {
+      primary: {
+        main: "#2E7D32",
+        light: "#4CAF50",
+        dark: "#1B5E20",
+      },
+      secondary: {
+        main: "#795548",
+        light: "#8D6E63",
+        dark: "#5D4037",
+      },
+    },
+    typography: {
+      h1: {
+        fontFamily: "Montserrat, sans-serif",
+        fontWeight: 600,
+      },
+    },
+  },
+};
+```
+
+### Benefits
+
+- **Consistent Branding**: Each asset category maintains its own visual identity
+- **Flexible Customization**: Easy to add new themes for different categories
+- **Maintainable Code**: Theme configurations are centralized and reusable
+- **Performance**: Theme changes are optimized and don't cause unnecessary re-renders
+- **Developer Experience**: Simple API for accessing and modifying themes
+
+## Table of Contents
+
+- [Current Features](#current-features)
+- [Extensible Architecture](#extensible-architecture)
+- [Technical Stack](#technical-stack)
+- [Future Roadmap](#future-roadmap)
+- [Features](#features)
+- [Live Demo](#live-demo)
+- [Prerequisites](#prerequisites)
+- [Local Development Setup](#local-development-setup)
+  - [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [Building for Production](#building-for-production)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
+## Current Features
+
+- Google Places integration for location-based content
+- Dynamic landing page generation
+- Interactive maps and location data visualization
+- Customizable templates and layouts
+- Custom Theme per Asset category.
+
+## Extensible Architecture
+
+The application is built with extensibility in mind, allowing for easy integration of new asset providers such as:
+
+- Real estate listings
+- Travel destinations
+- Local business information
+- Event venues
+- And more...
+
+## Technical Stack
+
+- React with TypeScript
+- Vite for build tooling
+- Material UI for component library
+- Google Maps API for location services
+
+## Future Roadmap
+
+- Additional asset provider integrations
+- Enhanced styling per category, using the CustomThemeProvider, we can define default styling for MUI components based on our Asset category
+- Layout per Category
 
 ## Features
 
 - Search for location using Google Places API
-- Interactive map for location selection
+- Interactive map for location visualization
 - Automatic landing page generation based on business data
 - Modern, responsive design using Material UI
 - TypeScript for type safety
 - SEO-friendly generated landing pages
+- Custom theme per Asset category, this will also allow us in the future to customize MUI components per cateogry.
 
 ## Live Demo
 
-The application is deployed on GitHub Pages and can be accessed [here](https://ts0ron.github.io/landing-gen-frontend)
+The application is deployed on GitHub Pages and can be accessed [here](https://ts0ron.github.io/pagenerate/)
 
 ## Prerequisites
 
@@ -22,7 +137,6 @@ The application is deployed on GitHub Pages and can be accessed [here](https://t
 - Google Maps API key with Places API enabled
   - Places API
   - Maps JavaScript API
-  - Geocoding API
 
 ## Local Development Setup
 
@@ -49,9 +163,24 @@ npm install
 3. Create a `.env.local` file in the root directory and add your environment variables:
 
 ```env
-VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+# Google Maps API Configuration
+VITE_GOOGLE_MAPS_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# Backend API Configuration
 VITE_APP_API_URL=http://localhost:3000
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+VITE_APP_HOSTNAME=http://localhost:5173
+
+# OpenAI API Configuration
+VITE_OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:abcdef1234567890
+VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
 4. Start the development server:
@@ -71,6 +200,8 @@ The application will be available at `http://localhost:5173`.
 
 ## Building for Production
 
+Currently we are building using Github Pages feature. This can be customized to other provider at your preference.
+
 To create a production build:
 
 ```bash
@@ -79,36 +210,52 @@ npm run build
 
 The build artifacts will be stored in the `dist/` directory.
 
-4. Add your Google Maps API key to your repository secrets:
+4. Add all the env varialbes from the numb snippet [above](#local-development-setup), treat sensitive data properly.
 
-   - Go to your repository settings
-   - Navigate to Secrets and Variables > Actions
-   - Add a new secret named `VITE_APP_GOOGLE_MAPS_API_KEY` with your API key
-
-5. Push your changes to the main branch, and GitHub Actions will automatically deploy your site to GitHub Pages.
+5. Push your changes to the main branch ,or to the branch you've configured github to listen at, and GitHub Actions will automatically deploy your site to GitHub Pages.
 
 ## Project Structure
 
 ```
 src/
-  components/       # Reusable components
-  layouts/         # Layout components
-  pages/           # Page components
-  services/        # API services
-  contexts/        # React contexts
-  hooks/           # Custom hooks
-  utils/           # Utility functions
-  assets/          # Static assets
-  templates/       # Landing page templates
+├── assets/          # Static assets (images, fonts, etc.)
+├── components/      # Reusable UI components
+│   ├── auth/       # Authentication related components
+│   ├── common/     # Shared components (buttons, inputs, etc.)
+│   ├── sections/   # Page sections (hero, features, etc.)
+│   └── views/      # Complex view components (maps, forms, etc.)
+├── contexts/       # React context providers
+│   └── theme/      # Theme context and providers
+├── hooks/          # Custom React hooks
+├── layouts/        # Page layout components
+│   └── main/       # Main application layout
+├── pages/          # Page components
+├── services/       # API and external service integrations
+│   └── api/        # API service definitions
+├── templates/      # Landing page templates
+├── utils/          # Utility functions and helpers
+└── constants/      # Application constants and configurations
+
+public/            # Public static files
+├── index.html     # Main HTML file
+└── assets/        # Public assets
+
+.env.local        # Local environment variables
+.env.production   # Production environment variables
 ```
 
-## Environment Variables
+Each directory serves a specific purpose:
 
-The following environment variables are required:
-
-- `VITE_APP_GOOGLE_MAPS_API_KEY`: Your Google Maps API key
-- `VITE_APP_API_URL`: Backend API URL (default: http://localhost:3000 for development)
-- `VITE_OPENAI_API_KEY`: Your OpenAI API key for AI-powered features
+- `assets/`: Contains all static files like images, icons, and fonts
+- `components/`: Reusable UI components organized by functionality
+- `contexts/`: React context providers for state management
+- `hooks/`: Custom React hooks for shared logic
+- `layouts/`: Page layout components and structure
+- `pages/`: Main page components for each route
+- `services/`: API integrations and external service connections
+- `templates/`: Landing page templates and variations - currently only 1 template is implemented. This structure should allow us to add more templates easily in the future, either based on asset category or other info.
+- `utils/`: Helper functions and utilities
+- `constants/`: Application-wide constants and configurations
 
 ## Contributing
 
