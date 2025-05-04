@@ -115,6 +115,8 @@ The application is built with extensibility in mind, allowing for easy integrati
 - Additional asset provider integrations
 - Enhanced styling per category, using the CustomThemeProvider, we can define default styling for MUI components based on our Asset category
 - Layout per Category
+- Fetch reviews using pagination (currently max of 5 are being retreived).
+- Fetch images using pagination (currently max of 10 are being retreived).
 
 ## Features
 
