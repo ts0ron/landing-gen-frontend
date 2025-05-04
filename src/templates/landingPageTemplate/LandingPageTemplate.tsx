@@ -225,12 +225,6 @@ const LandingPageTemplate = ({
             </Box>
           </Grid> */}
         </Grid>
-
-        {/* Call to Action */}
-        <CallToAction
-          websiteUri={asset.websiteUri}
-          googleMapsUri={asset.googleMapsUri}
-        />
       </Box>
     </Box>
   );
