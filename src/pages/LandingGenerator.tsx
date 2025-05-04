@@ -284,16 +284,19 @@ const LandingGenerator = () => {
               spacing={2}
               sx={{ width: "100%", p: "20px", pt: 0 }}
             >
-              {generatedLocations.map((location) => (
-                <UrlDisplay
-                  key={location.id}
-                  url={location.url}
-                  displayName={location.displayName}
-                  address={location.address}
-                  width={"100%"}
-                  onCopyUrl={() => handleCopyUrl(location.url)}
-                />
-              ))}
+              {generatedLocations.map((location) => {
+                console.log("location", location);
+                return (
+                  <UrlDisplay
+                    key={location.id}
+                    url={location.url}
+                    displayName={location.displayName}
+                    address={location.address}
+                    width={"100%"}
+                    onCopyUrl={() => handleCopyUrl(location.url)}
+                  />
+                );
+              })}
             </Stack>
           </Box>
         )}
